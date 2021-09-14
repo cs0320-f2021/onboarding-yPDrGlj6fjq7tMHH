@@ -5,7 +5,7 @@ To build use:
 To run use:
 `./run`
 
-This will give you a barebones REPL, where you can enter text and you will be output at most 5 suggestions sorted alphabetically.
+This will give you a barebones REPL, where you can enter text and you will be output at most 5 suggestions sorted alphabetically. :0
 
 To start the server use:
 `./run --gui [--port=<port>]`

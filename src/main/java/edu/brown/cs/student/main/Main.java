@@ -2,10 +2,13 @@ package edu.brown.cs.student.main;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
@@ -67,9 +70,47 @@ public final class Main {
         try {
           input = input.trim();
           String[] arguments = input.split(" ");
-          System.out.println(arguments[0]);
-          // TODO: complete your REPL by adding commands for addition "add" and subtraction
-          //  "subtract"
+//          System.out.println(arguments[0]);
+
+          String firstArg = arguments[0];
+
+          // Added Add and Subtract methods
+          if (firstArg.equals("add")) {
+            MathBot mathFriend = new MathBot();
+            double doub1 = Double.parseDouble(arguments[1]);
+            double doub2 = Double.parseDouble(arguments[2]);
+
+            System.out.println(mathFriend.add(doub1, doub2));
+
+          } else if (firstArg.equals("subtract")) {
+            MathBot mathFriend = new MathBot();
+            double doub1 = Double.parseDouble(arguments[1]);
+            double doub2 = Double.parseDouble(arguments[2]);
+
+            System.out.println(mathFriend.subtract(doub1, doub2));
+          }
+          // TODO: Implement stars <filename>
+          else if (firstArg.equals("stars")) {
+            String filename = arguments[1];
+
+            try (BufferedReader br2 = new BufferedReader(new FileReader(filename))) {
+              String line;
+              List stars = new ArrayList<String[]>();
+              while ((line = br2.readLine()) != null) {
+                line = line.trim();
+                String[] starTraits = line.split(",");
+                stars.add(starTraits);
+              }
+
+            } catch (Exception e) {
+              System.out.println("ERROR: Invalid file name");
+            }
+          }
+          // TODO: Implement the two naive_neighbors functions
+          else if (firstArg.equals("naive_neighbors")) {
+            // TODO: Implement
+          }
+
         } catch (Exception e) {
           // e.printStackTrace();
           System.out.println("ERROR: We couldn't process your input");
