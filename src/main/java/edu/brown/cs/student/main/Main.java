@@ -69,28 +69,26 @@ public final class Main {
           input = input.trim();
           String[] arguments = input.split(" ");
           String firstArg = arguments[0];
-          if (firstArg.equals("add")) {
+          if (firstArg.equals("add")) { // Call add method
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
             System.out.println(mathFriend.add(doub1, doub2));
-          } else if (firstArg.equals("subtract")) {
+          } else if (firstArg.equals("subtract")) { // Call subtract method
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
             System.out.println(mathFriend.subtract(doub1, doub2));
-          } else if (firstArg.equals("stars")) {
+          } else if (firstArg.equals("stars")) { // Call read stars CSV method
             String filename = arguments[1];
             starFriend.processCSV(filename);
           } else if (firstArg.equals("naive_neighbors")) {
-            if (arguments.length == 5) {
-              // For naive_neighbors <k> <x> <y> <z>
+            if (arguments.length == 5) { // Call naive_neighbors <k> <x> <y> <z>
               int k = Integer.parseInt(arguments[1]);
               float x = Float.parseFloat(arguments[2]);
               float y = Float.parseFloat(arguments[3]);
               float z = Float.parseFloat(arguments[4]);
               starFriend.neighborsCoords(k, x, y, z);
               starFriend.printNeighbors();
-            } else if (arguments.length == 3) {
-              // For naive_neighbors <k> <"name">
+            } else if (arguments.length == 3) { // Call naive_neighbors <k> <"name">
               int k = Integer.parseInt(arguments[1]);
               String name = arguments[2];
               starFriend.neighborsName(k, name);

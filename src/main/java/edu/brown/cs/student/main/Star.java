@@ -21,6 +21,7 @@ public class Star {
   }
 }
 
+// Used to sort stars by distance
 class SortByDistance implements Comparator<Star> {
   public int compare(Star star1, Star star2) {
     if (star1.getDistance() < star2.getDistance()) {
