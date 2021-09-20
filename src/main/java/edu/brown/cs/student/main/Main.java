@@ -2,13 +2,10 @@ package edu.brown.cs.student.main;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
@@ -63,54 +60,43 @@ public final class Main {
       runSparkServer((int) options.valueOf("port"));
     }
 
-    // TODO: Add your REPL here!
     try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
       String input;
+      MathBot mathFriend = new MathBot(); // For "add" and "subtract"
+      StarProcessor starFriend = new StarProcessor(); // For star methods
       while ((input = br.readLine()) != null) {
         try {
           input = input.trim();
           String[] arguments = input.split(" ");
-//          System.out.println(arguments[0]);
-
           String firstArg = arguments[0];
-
-          // Added Add and Subtract methods
           if (firstArg.equals("add")) {
-            MathBot mathFriend = new MathBot();
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
-
             System.out.println(mathFriend.add(doub1, doub2));
-
           } else if (firstArg.equals("subtract")) {
-            MathBot mathFriend = new MathBot();
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
-
             System.out.println(mathFriend.subtract(doub1, doub2));
-          }
-          // TODO: Implement stars <filename>
-          else if (firstArg.equals("stars")) {
+          } else if (firstArg.equals("stars")) {
             String filename = arguments[1];
-
-            try (BufferedReader br2 = new BufferedReader(new FileReader(filename))) {
-              String line;
-              List stars = new ArrayList<String[]>();
-              while ((line = br2.readLine()) != null) {
-                line = line.trim();
-                String[] starTraits = line.split(",");
-                stars.add(starTraits);
-              }
-
-            } catch (Exception e) {
-              System.out.println("ERROR: Invalid file name");
+            starFriend.processCSV(filename);
+          } else if (firstArg.equals("naive_neighbors")) {
+            if (arguments.length == 5) {
+              // For naive_neighbors <k> <x> <y> <z>
+              int k = Integer.parseInt(arguments[1]);
+              float x = Float.parseFloat(arguments[2]);
+              float y = Float.parseFloat(arguments[3]);
+              float z = Float.parseFloat(arguments[4]);
+              starFriend.neighborsCoords(k, x, y, z);
+              starFriend.printNeighbors();
+            } else if (arguments.length == 3) {
+              // For naive_neighbors <k> <"name">
+              int k = Integer.parseInt(arguments[1]);
+              String name = arguments[2];
+              starFriend.neighborsName(k, name);
+              starFriend.printNeighbors();
             }
           }
-          // TODO: Implement the two naive_neighbors functions
-          else if (firstArg.equals("naive_neighbors")) {
-            // TODO: Implement
-          }
-
         } catch (Exception e) {
           // e.printStackTrace();
           System.out.println("ERROR: We couldn't process your input");
