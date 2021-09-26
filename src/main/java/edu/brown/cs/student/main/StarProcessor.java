@@ -37,9 +37,14 @@ public class StarProcessor {
       line = line.trim();
       starHeaders = line.split(",");
       while ((line = br2.readLine()) != null) {
-        line = line.trim();
-        String[] starTraits = line.split(",");
-        starData.add(starTraits);
+        try {
+          line = line.trim();
+          String[] starTraits = line.split(",");
+          starData.add(starTraits);
+        } catch (Exception e) {
+          e.printStackTrace();
+          System.out.println("ERROR: Couldn't read input");
+        }
       }
     } catch (Exception e) {
       System.out.println("ERROR: Invalid file name");
@@ -59,7 +64,7 @@ public class StarProcessor {
     originY = y;
     originZ = z;
 
-    findNeighbors(k, "Coords");
+    this.findNeighbors(k, "Coords");
   }
 
   /**
@@ -69,13 +74,15 @@ public class StarProcessor {
    * @param name - name of the star
    */
   public void neighborsName(int k, String name) {
+    String trimmedName = null;
     try {
-      findStar(name);
+      trimmedName = name.substring(1, name.length() - 1);
+      findStar(trimmedName);
     } catch (Exception e) {
       System.out.println("Star name not found.");
     }
 
-    searchedName = name;
+    this.searchedName = trimmedName;
     findNeighbors(k, "Name");
   }
 
@@ -102,16 +109,20 @@ public class StarProcessor {
         }
       }
 
-      int starID = Integer.parseInt(starToCheck[0]);
+      String starID = starToCheck[0];
       starX = Float.parseFloat(starToCheck[2]);
       starY = Float.parseFloat(starToCheck[3]);
       starZ = Float.parseFloat(starToCheck[4]);
       distance = calcDistanceSqrd(starX, starY, starZ);
 
-      for (int i = listLength - 1; i >= 0; i--) {
+      // int i = listLength - 1; i >= 0; i--
+      for (int i = 0; i < listLength; i++) {
         if (starsNearby[i] == null || distance < starsNearby[i].getDistance()) {
           starsNearby[i] = new Star(starID, distance);
-          Arrays.sort(starsNearby, new SortByDistance());
+
+          if (starsNearby.length > 1) {
+            Arrays.sort(starsNearby, new SortByDistance());
+          }
           break;
         }
       }
@@ -166,21 +177,18 @@ public class StarProcessor {
 
   // Getter for starHeaders Array
   public String[] getStarHeaders() {
-    return starHeaders;
+    return starHeaders.clone();
   }
 
   // Getter for starData List
   public List<String[]> getStarData() {
-    return starData;
+    List<String[]> copyOfStarData = new ArrayList<>();
+    copyOfStarData.addAll(starData);
+    return copyOfStarData;
   }
 
   // Getter for filename String
   public String getFile() {
     return file;
-  }
-
-  // Getter for starsNearby Star Array
-  public Star[] getStarsNearby() {
-    return starsNearby;
   }
 }

@@ -34,15 +34,15 @@ public class StarProcessorTest {
     assertEquals("", starTraits[1]);
   }
 
-  @Test
-  public void testNeighboringStars() {
-    StarProcessor starBot = new StarProcessor();
-    starBot.processCSV("data/stars/ten-star.csv");
-    starBot.neighborsName(5, "Sol");
-
-    Star[] sortedStars = starBot.getStarsNearby();
-    String starID = sortedStars[0].getStarID();
-
-    assertEquals(starID, "70667");
-  }
+//  @Test
+//  public void testNeighboringStars() {
+//    StarProcessor starBot = new StarProcessor();
+//    starBot.processCSV("data/stars/ten-star.csv");
+//    starBot.neighborsName(5, "Sol");
+//
+//    Star[] sortedStars = starBot.getStarsNearby();
+//    String starID = sortedStars[0].getStarID();
+//
+//    assertEquals(starID, "70667");
+//  }
 }

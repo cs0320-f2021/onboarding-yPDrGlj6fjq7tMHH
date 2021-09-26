@@ -7,9 +7,9 @@ public class Star {
   private float distance;
 
   // Constructor
-  public Star(int starID, float distance) {
-    starID = starID;
-    distance = distance;
+  public Star(String starID, float distance) {
+    this.starID = starID;
+    this.distance = distance;
   }
 
   public float getDistance() {

@@ -69,11 +69,11 @@ public final class Main {
           input = input.trim();
           String[] arguments = input.split(" ");
           String firstArg = arguments[0];
-          if (firstArg.equals("add")) { // Call add method
+          if (firstArg.equals("add") && arguments.length == 3) { // Call add method
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
             System.out.println(mathFriend.add(doub1, doub2));
-          } else if (firstArg.equals("subtract")) { // Call subtract method
+          } else if (firstArg.equals("subtract") && arguments.length == 3) { // Call subtract method
             double doub1 = Double.parseDouble(arguments[1]);
             double doub2 = Double.parseDouble(arguments[2]);
             System.out.println(mathFriend.subtract(doub1, doub2));
@@ -94,9 +94,11 @@ public final class Main {
               starFriend.neighborsName(k, name);
               starFriend.printNeighbors();
             }
+          } else {
+            System.out.println("ERROR: Unrecognizable command");
           }
         } catch (Exception e) {
-          // e.printStackTrace();
+          e.printStackTrace();
           System.out.println("ERROR: We couldn't process your input");
         }
       }
